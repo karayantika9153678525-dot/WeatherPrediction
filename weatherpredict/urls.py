@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """
 URL configuration for weatherpredict project.
 
@@ -30,7 +30,6 @@ urlpatterns = [
 
 
  
-=======
 """
 URL configuration for weatherpredict project.
 
@@ -60,5 +59,3 @@ urlpatterns = [
     path('predict/', predict_api, name="predict_api"),  # ✅ API endpoint
 ]
 
- 
->>>>>>> 556c898955d2e86d6e2bb0b002c875bce26477a0
