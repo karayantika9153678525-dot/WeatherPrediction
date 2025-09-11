@@ -14,7 +14,11 @@ SECRET_KEY = 'django-insecure-4l66u$12-l+m)!uj=6xl)f9m51_$=q^btlu&b8##q2tv0-ddiw
 DEBUG = True  # Change to False in production
 
 # ALLOWED_HOSTS: use environment variable, fallback for Render
-ALLOWED_HOSTS = ["weatherprediction-4.onrender.com", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "weatherprediction-x6lf.onrender.com",
+]
 
 
 # ----------------------------
