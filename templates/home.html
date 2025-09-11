@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+            background: #f5f7fa;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            background: #fff;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result-box {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 15px;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            background: #e6ffe6;
+            text-align: center;
+        }
+        .result-box h2 {
+            color: #155724;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌦 Weather Prediction App</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label>Temperature (°C):</label>
+        <input type="number" step="0.1" name="temp" required>
+
+        <label>Dew Point Temp (°C):</label>
+        <input type="number" step="0.1" name="dew_point" required>
+
+        <label>Relative Humidity (%):</label>
+        <input type="number" step="0.1" name="humidity" required>
+
+        <label>Wind Speed (km/h):</label>
+        <input type="number" step="0.1" name="wind_speed" required>
+
+        <label>Visibility (km):</label>
+        <input type="number" step="0.1" name="visibility" required>
+
+        <label>Pressure (kPa):</label>
+        <input type="number" step="0.1" name="pressure" required>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if result %}
+        <div class="result-box">
+            <h2>✅ Predicted Weather Condition: {{ result }}</h2>
+        </div>
+    {% endif %}
+</body>
+</html>
