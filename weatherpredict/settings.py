@@ -18,9 +18,17 @@ SECRET_KEY = os.environ.get(
     "django-insecure-replace-this-with-a-secure-key"
 )
 
-DEBUG = True
+DEBUG = False  # Set to False in production
 
-ALLOWED_HOSTS = ["*"]  # allow all for development (update in production)
+# Only allow your Render domain in production
+ALLOWED_HOSTS = ["weatherprediction-x6lf.onrender.com"]
+
+# --------------------------------
+# CSRF Trusted Origins
+# --------------------------------
+CSRF_TRUSTED_ORIGINS = [
+    "https://weatherprediction-x6lf.onrender.com",
+]
 
 # --------------------------------
 # Applications
@@ -104,8 +112,8 @@ USE_TZ = True
 # Static & Media Files
 # --------------------------------
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = BASE_DIR / "staticfiles"  # Render will serve from here
+STATICFILES_DIRS = [BASE_DIR / "static"]  # optional for local static files
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
