@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """
 WSGI config for weatherpredict project.
 
@@ -15,7 +15,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'weatherpredict.settings')
 
 application = get_wsgi_application()
-=======
+
 """
 WSGI config for weatherpredict project.
 
@@ -32,4 +32,4 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'weatherpredict.settings')
 
 application = get_wsgi_application()
->>>>>>> 556c898955d2e86d6e2bb0b002c875bce26477a0
+
