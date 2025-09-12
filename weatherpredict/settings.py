@@ -8,60 +8,65 @@ from pathlib import Path
 # ----------------------------
 # BASE DIRECTORY
 # ----------------------------
-BASE_DIR = Path(__file__).resolve().parent.parent  # Points to your project root
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ----------------------------
 # SECURITY
 # ----------------------------
-SECRET_KEY = 'your-secret-key-here'  # Replace with your own secret key
-DEBUG = True
-ALLOWED_HOSTS = []
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-local-secret-key")
+DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "weatherprediction-x6lf.onrender.com",  # ✅ add your Render domain
+]
 
 # ----------------------------
 # INSTALLED APPS
 # ----------------------------
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'weatherpredict',  # your app
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "weatherpredict",
 ]
 
 # ----------------------------
 # MIDDLEWARE
 # ----------------------------
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',       # ✅ must come before auth
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',    # ✅ required for admin
-    'django.contrib.messages.middleware.MessageMiddleware',       # ✅ required for admin
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",   # ✅ serves static files on Render
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 # ----------------------------
 # URL CONFIG
 # ----------------------------
-ROOT_URLCONF = 'weatherpredict.urls'
+ROOT_URLCONF = "weatherpredict.urls"
 
 # ----------------------------
 # TEMPLATES
 # ----------------------------
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "weatherpredict" / "templates"],  # Make sure templates folder exists
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "weatherpredict" / "templates"],  # ✅ templates folder
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
@@ -70,15 +75,15 @@ TEMPLATES = [
 # ----------------------------
 # WSGI
 # ----------------------------
-WSGI_APPLICATION = 'weatherpredict.wsgi.application'
+WSGI_APPLICATION = "weatherpredict.wsgi.application"
 
 # ----------------------------
-# DATABASE (SQLite example)
+# DATABASE
 # ----------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -86,38 +91,37 @@ DATABASES = {
 # PASSWORD VALIDATORS
 # ----------------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 # ----------------------------
 # INTERNATIONALIZATION
 # ----------------------------
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
 USE_I18N = True
 USE_TZ = True
 
 # ----------------------------
 # STATIC FILES
 # ----------------------------
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+
+# Where collectstatic will put files (for Render)
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Local static folder (optional, for your CSS/JS before collectstatic)
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # ✅ points to the actual folder
+    BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic
+
+# ✅ Whitenoise static files compression (good for Render)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ----------------------------
 # DEFAULT AUTO FIELD
 # ----------------------------
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
