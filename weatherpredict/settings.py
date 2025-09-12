@@ -15,7 +15,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ----------------------------
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "your-local-secret-key")
 DEBUG = os.getenv("DJANGO_DEBUG", "True") == "True"
-ALLOWED_HOSTS = ["weatherprediction-x6lf.onrender.com", "localhost", "127.0.0.1"]
+
+ALLOWED_HOSTS = [
+    "weatherprediction-x6lf.onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
+
+# ✅ Fix CSRF issue on Render
+CSRF_TRUSTED_ORIGINS = [
+    "https://weatherprediction-x6lf.onrender.com",
+]
 
 # ----------------------------
 # INSTALLED APPS
@@ -68,8 +78,6 @@ TEMPLATES = [
     },
 ]
 
-
-
 # ----------------------------
 # WSGI
 # ----------------------------
@@ -106,14 +114,13 @@ USE_TZ = True
 # ----------------------------
 # STATIC FILES
 # ----------------------------
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Where collectstatic will put files (for Render)
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Local static folder (optional, for your CSS/JS before collectstatic)
 STATICFILES_DIRS = [BASE_DIR / "static"]
-
 
 # ✅ Whitenoise static files compression (good for Render)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
