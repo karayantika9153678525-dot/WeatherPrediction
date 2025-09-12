@@ -5,120 +5,119 @@ Django settings for weatherpredict project.
 import os
 from pathlib import Path
 
-# --------------------------------
-# Base Directory
-# --------------------------------
-BASE_DIR = Path(__file__).resolve().parent.parent
+# ----------------------------
+# BASE DIRECTORY
+# ----------------------------
+BASE_DIR = Path(__file__).resolve().parent.parent  # Points to your project root
 
-# --------------------------------
-# Security
-# --------------------------------
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    "django-insecure-replace-this-with-a-secure-key"
-)
+# ----------------------------
+# SECURITY
+# ----------------------------
+SECRET_KEY = 'your-secret-key-here'  # Replace with your own secret key
+DEBUG = True
+ALLOWED_HOSTS = []
 
-DEBUG = False  # Set to False in production
-
-# Only allow your Render domain in production
-ALLOWED_HOSTS = ["weatherprediction-x6lf.onrender.com"]
-
-# --------------------------------
-# CSRF Trusted Origins
-# --------------------------------
-CSRF_TRUSTED_ORIGINS = [
-    "https://weatherprediction-x6lf.onrender.com",
-]
-
-# --------------------------------
-# Applications
-# --------------------------------
+# ----------------------------
+# INSTALLED APPS
+# ----------------------------
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    # Your apps
-    "weatherpredict",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'weatherpredict',  # your app
 ]
 
-# --------------------------------
-# Middleware
-# --------------------------------
+# ----------------------------
+# MIDDLEWARE
+# ----------------------------
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',       # ✅ must come before auth
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',    # ✅ required for admin
+    'django.contrib.messages.middleware.MessageMiddleware',       # ✅ required for admin
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# --------------------------------
-# Root URLs and WSGI
-# --------------------------------
-ROOT_URLCONF = "weatherpredict.urls"
+# ----------------------------
+# URL CONFIG
+# ----------------------------
+ROOT_URLCONF = 'weatherpredict.urls'
 
+# ----------------------------
+# TEMPLATES
+# ----------------------------
 TEMPLATES = [
     {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],  # custom templates folder
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / "weatherpredict" / "templates"],  # Make sure templates folder exists
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = "weatherpredict.wsgi.application"
+# ----------------------------
+# WSGI
+# ----------------------------
+WSGI_APPLICATION = 'weatherpredict.wsgi.application'
 
-# --------------------------------
-# Database
-# --------------------------------
+# ----------------------------
+# DATABASE (SQLite example)
+# ----------------------------
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-# --------------------------------
-# Password Validators
-# --------------------------------
+# ----------------------------
+# PASSWORD VALIDATORS
+# ----------------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
-# --------------------------------
-# Internationalization
-# --------------------------------
-LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+# ----------------------------
+# INTERNATIONALIZATION
+# ----------------------------
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# --------------------------------
-# Static & Media Files
-# --------------------------------
-STATIC_URL = "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"  # Render will serve from here
-STATICFILES_DIRS = [BASE_DIR / "static"]  # optional for local static files
+# ----------------------------
+# STATIC FILES
+# ----------------------------
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # ✅ points to the actual folder
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"  # for collectstatic
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
-
-# --------------------------------
-# Default Primary Key
-# --------------------------------
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# ----------------------------
+# DEFAULT AUTO FIELD
+# ----------------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

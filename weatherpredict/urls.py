@@ -48,7 +48,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home, about, contact, predict_api
+from weatherpredict.views import home, about, contact, predict_api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -56,6 +56,7 @@ urlpatterns = [
     path('home/', home, name="home"),         # Home page (optional, for /home/)
     path('about/', about, name="about"),      # About page
     path('contact/', contact, name="contact"),# Contact page
-    path('predict/', predict_api, name="predict_api"),  # ✅ API endpoint
+    path('predict/', predict_api, name="predict_api"),  # API endpoint
 ]
+
 
