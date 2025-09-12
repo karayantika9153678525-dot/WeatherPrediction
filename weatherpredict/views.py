@@ -5,6 +5,7 @@ from pathlib import Path
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.conf import settings
+from django.template.loader import get_template   # 👈 added import
 from joblib import load
 
 # ----------------------------
@@ -53,6 +54,10 @@ print("✅ Target labels loaded")
 # ---------- Home Page ----------
 def home(request):
     context = {}
+
+    # 👇 Debug print: tells you which home.html is being used
+    print("👉 Using template:", get_template("home.html").origin)
+
     if request.method == "POST" and model:
         try:
             temp = float(request.POST.get("temp", 0))
