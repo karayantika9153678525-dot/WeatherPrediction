@@ -55,7 +55,7 @@ ROOT_URLCONF = "weatherpredict.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "weatherpredict" / "templates"],  # ✅ templates folder
+        "DIRS": [BASE_DIR / "templates"],  # ✅ points directly to templates folder
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -67,6 +67,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 # ----------------------------
 # WSGI
